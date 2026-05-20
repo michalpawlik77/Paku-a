@@ -1407,23 +1407,11 @@ const DANE_DOMYSLNE = {
 // Zastosuj dane domyślne od razu
 applyData(DANE_DOMYSLNE);
 
-// Pobierz dane z Google Sheets (działa na serwerze i lokalnie)
+// Pobierz dane z Google Sheets przez Apps Script proxy
 function loadSheetData() {
-  fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=191886720`)
-    .then(r => r.text())
-    .then(text => {
-      // Google zwraca /*O_o*/ google.visualization.Query.setResponse({...});
-      const jsonStr = text.replace(/^.*?setResponse\(/, '').replace(/\);?\s*$/, '');
-      const json = JSON.parse(jsonStr);
-      const rows = json.table.rows;
-      const dane = {};
-      rows.forEach(row => {
-        if (row.c[0] && row.c[1]) {
-          const key = row.c[0].v.trim();
-          const val = row.c[1].v !== null ? String(row.c[1].v).trim() : '';
-          if (val) dane[key] = val;
-        }
-      });
+  fetch('https://script.google.com/macros/s/AKfycbw-0cRa1mhk19uR8wnx21IjEhxlDHD_I1DRhHPfrYpg6YpxQ7JJwlnFN8o4slEBXjA/exec')
+    .then(r => r.json())
+    .then(dane => {
       applyData(dane);
       console.log('✅ Dane załadowane z Google Sheets');
     })
