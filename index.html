@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biuro Rachunkowe A.M. Pakuła – Piekary Śląskie</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ─── EXACT ORIGINAL PALETTE ─── */
+:root {
+  /* Oryginalne kolory z biuropodatki.com.pl */
+  --blue-dark:   #1a3a5c;   /* nav tło oryginalne */
+  --blue-mid:    #1e4d7b;   /* sidebar/sekcje */
+  --blue-bright: #2e6da4;   /* bootstrap primary */
+  --blue-light:  #d6e8f7;   /* jasnoniebieskie tło */
+  --green:       #5cb85c;   /* bootstrap success */
+  --green-dark:  #449d44;   /* hover green */
+  --green-pale:  #dff0d8;   /* zielone tło */
+  --white:       #ffffff;
+  --offwhite:    #f5f7fa;
+  --gray-light:  #ecf0f1;
+  --gray:        #95a5a6;
+  --text:        #2c3e50;
+  --text-muted:  #5d7285;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--offwhite);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── FLOATING NAV ─── */
+nav {
+  position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%);
+  z-index: 200;
+  background: rgba(26, 58, 92, 0.96);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 60px;
+  padding: 0 2rem;
+  height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2.5rem;
+  width: min(1060px, calc(100% - 2rem));
+  box-shadow: 0 8px 32px rgba(26,58,92,0.3);
+}
+.nav-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--white); white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+.nav-logo span { color: #7dd3a8; }
+.nav-links { display: flex; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  font-size: 0.78rem; font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 30px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+.nav-cta {
+  background: var(--green);
+  color: var(--white);
+  padding: 0.45rem 1.3rem;
+  border-radius: 30px;
+  font-size: 0.78rem; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.nav-cta:hover { background: var(--green-dark); transform: scale(1.04); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(46,109,164,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 70% at 10% 80%, rgba(92,184,92,0.1) 0%, transparent 60%),
+    var(--offwhite);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 7rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* dekoracyjne koła w tle */
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  pointer-events: none;
+}
+.orb-1 {
+  width: 700px; height: 700px;
+  top: -200px; right: -150px;
+  background: radial-gradient(circle, rgba(30,77,123,0.08) 0%, transparent 70%);
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  bottom: -100px; left: 5%;
+  background: radial-gradient(circle, rgba(92,184,92,0.08) 0%, transparent 70%);
+}
+
+.hero-left {
+  padding: 0 3rem 0 max(3rem, calc((100vw - 1100px)/2 + 1rem));
+  position: relative; z-index: 1;
+}
+
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--green-pale);
+  border: 1px solid rgba(92,184,92,0.35);
+  color: var(--green-dark);
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.35rem 1rem; border-radius: 30px;
+  margin-bottom: 2rem;
+  animation: rise 0.7s ease both;
+}
+.hero-chip::before { content: '●'; font-size: 0.5rem; color: var(--green); }
+
+.hero h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.8rem, 4.5vw, 4.8rem);
+  font-weight: 800; color: var(--blue-dark);
+  line-height: 1.08; letter-spacing: -0.025em;
+  animation: rise 0.8s 0.05s ease both;
+}
+.hero h1 .accent {
+  color: var(--blue-bright);
+  position: relative; display: inline-block;
+}
+.hero h1 .accent::after {
+  content: '';
+  position: absolute; left: 0; bottom: 2px; right: 0;
+  height: 4px;
+  background: var(--green);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+.hero-lead {
+  color: var(--text-muted);
+  font-size: 1.05rem; line-height: 1.75; font-weight: 400;
+  max-width: 460px; margin-top: 1.5rem;
+  animation: rise 0.9s 0.1s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  margin-top: 2.5rem;
+  animation: rise 1s 0.15s ease both;
+}
+.btn-primary {
+  background: var(--blue-mid);
+  color: var(--white);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-size: 0.9rem; font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+.btn-primary:hover {
+  background: var(--blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(30,77,123,0.3);
+}
+.btn-secondary {
+  background: var(--white);
+  color: var(--blue-mid);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-size: 0.9rem; font-weight: 600;
+  text-decoration: none;
+  border: 2px solid var(--blue-light);
+  transition: all 0.25s;
+}
+.btn-secondary:hover {
+  border-color: var(--blue-mid);
+  transform: translateY(-2px);
+}
+
+.hero-trust {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-top: 2.5rem;
+  animation: rise 1.1s 0.2s ease both;
+}
+.trust-avatars {
+  display: flex;
+}
+.trust-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 2px solid var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; color: var(--white);
+  margin-left: -8px;
+}
+.trust-avatar:first-child { margin-left: 0; }
+.trust-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
+.trust-text strong { color: var(--text); display: block; font-size: 0.9rem; }
+
+/* hero right — karty glassowe */
+.hero-right {
+  padding: 0 max(2rem, calc((100vw - 1100px)/2 + 1rem)) 0 2.5rem;
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 1rem;
+  animation: rise 0.9s 0.2s ease both;
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 4px 24px rgba(30,77,123,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(30,77,123,0.14);
+}
+.glass-card.main-card {
+  background: var(--blue-mid);
+  border-color: transparent;
+  color: var(--white);
+  padding: 2rem;
+}
+
+.gc-label {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 0.5rem;
+}
+.glass-card.main-card .gc-label { color: rgba(255,255,255,0.55); }
+
+.gc-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.6rem; font-weight: 800;
+  color: var(--blue-dark); line-height: 1;
+}
+.glass-card.main-card .gc-value { color: var(--white); }
+.gc-value .unit { font-size: 1rem; font-weight: 400; opacity: 0.6; margin-left: 4px; }
+
+.gc-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem; }
+.glass-card.main-card .gc-sub { color: rgba(255,255,255,0.5); }
+
+.gc-row { display: flex; gap: 1rem; }
+.gc-row .glass-card { flex: 1; }
+
+.gc-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 0.75rem;
+}
+.gc-icon svg { width: 18px; height: 18px; }
+
+.badge-green {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--green-pale); color: var(--green-dark);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 0.3rem 0.75rem; border-radius: 30px;
+  margin-top: 1rem;
+}
+
+/* ─── FEATURES STRIP ─── */
+.strip {
+  background: var(--blue-dark);
+  padding: 0;
+  display: flex; overflow: hidden;
+}
+.strip-item {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; gap: 1.25rem;
+  transition: background 0.3s;
+}
+.strip-item:last-child { border-right: none; }
+.strip-item:hover { background: rgba(255,255,255,0.05); }
+.strip-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+}
+.strip-icon svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.8); }
+.strip-text-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
+.strip-text-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-top: 0.15rem; }
+
+/* ─── SECTION SHARED ─── */
+section.content-section { padding: 6rem 0; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue-bright);
+  margin-bottom: 0.75rem;
+}
+.eyebrow::before { content: ''; width: 1.5rem; height: 2px; background: var(--blue-bright); border-radius: 2px; }
+
+.section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 800; color: var(--blue-dark);
+  line-height: 1.1; letter-spacing: -0.02em;
+}
+.section-title .hl { color: var(--blue-bright); }
+
+/* ─── SERVICES ─── */
+.services { background: var(--white); }
+.services-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 2rem; flex-wrap: wrap; margin-bottom: 3.5rem;
+}
+.services-desc { max-width: 340px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5px;
+  background: var(--gray-light);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--gray-light);
+}
+
+.svc {
+  background: var(--white);
+  padding: 2.5rem 2.5rem;
+  position: relative; overflow: hidden;
+  transition: background 0.35s;
+  cursor: default;
+}
+.svc::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-mid), var(--green));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s;
+}
+.svc:hover { background: #fafcff; }
+.svc:hover::before { transform: scaleX(1); }
+
+.svc-num {
+  position: absolute; top: 1.75rem; right: 2rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 4.5rem; font-weight: 800;
+  color: rgba(30,77,123,0.05); line-height: 1;
+  pointer-events: none;
+}
+
+.svc-icon-wrap {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.svc-icon-wrap svg { width: 22px; height: 22px; }
+
+.svc h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.2rem; font-weight: 700; color: var(--blue-dark);
+  margin-bottom: 0.6rem;
+}
+.svc p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+.svc-tags {
+  display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1.25rem;
+}
+.svc-tag {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
+  background: var(--blue-light); color: var(--blue-mid);
+  padding: 0.2rem 0.65rem; border-radius: 4px;
+}
+
+/* ─── WHY / ABOUT ─── */
+.about { background: var(--offwhite); }
+.about-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-big-card {
+  background: var(--blue-mid);
+  border-radius: 20px;
+  padding: 3rem;
+  color: var(--white);
+  position: relative; overflow: hidden;
+}
+.about-big-card::after {
+  content: '';
+  position: absolute; bottom: -60px; right: -60px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: rgba(92,184,92,0.12);
+}
+.about-big-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 5.5rem; font-weight: 800; line-height: 1;
+  color: var(--white);
+}
+.about-big-num span { font-size: 2rem; opacity: 0.6; }
+.about-big-label { color: rgba(255,255,255,0.55); font-size: 0.85rem; margin-top: 0.5rem; }
+
+.about-mini-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-top: 1rem;
+}
+.about-mini {
+  background: var(--white);
+  border-radius: 12px; padding: 1.25rem;
+  border: 1px solid var(--gray-light);
+  transition: box-shadow 0.2s;
+}
+.about-mini:hover { box-shadow: 0 6px 20px rgba(30,77,123,0.1); }
+.about-mini-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.8rem; font-weight: 800; color: var(--blue-dark); line-height: 1;
+}
+.about-mini-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+.about-content {}
+.about-content .section-title { margin-bottom: 1.5rem; }
+.about-content p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+.checklist li {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  font-size: 0.92rem; color: var(--text);
+}
+.check-dot {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border-radius: 50%; background: var(--green-pale);
+  border: 1.5px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; color: var(--green-dark);
+  margin-top: 1px; font-weight: 700;
+}
+
+/* ─── REVIEWS ─── */
+.reviews { background: var(--blue-dark); padding: 6rem 0; }
+.reviews-head { text-align: center; margin-bottom: 4rem; }
+.reviews-head .eyebrow { color: #7dd3a8; justify-content: center; }
+.reviews-head .eyebrow::before { background: #7dd3a8; }
+.reviews-head .section-title { color: var(--white); }
+
+.reviews-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.review-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 2rem;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s, transform 0.3s;
+}
+.review-card:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-4px);
+}
+.review-stars { display: flex; gap: 3px; margin-bottom: 1.25rem; }
+.review-stars span { color: #f5c542; font-size: 1rem; }
+.review-text {
+  font-size: 0.95rem; color: rgba(255,255,255,0.8);
+  line-height: 1.7; font-style: italic;
+}
+.review-footer {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-top: 1.5rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.review-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700; color: var(--white);
+  flex-shrink: 0;
+}
+.review-name { font-weight: 700; font-size: 0.88rem; color: var(--white); }
+.review-meta { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-top: 0.15rem; }
+.google-row {
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  margin-top: 2.5rem; color: rgba(255,255,255,0.4); font-size: 0.82rem;
+}
+.g-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #4285F4;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.72rem; color: white;
+}
+
+/* ─── CONTACT ─── */
+.contact { background: var(--white); padding: 6rem 0; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+.contact-panel {
+  background: var(--offwhite);
+  border-radius: 20px; padding: 2.5rem;
+  border: 1px solid var(--gray-light);
+}
+.contact-panel .section-title { font-size: 2rem; margin-bottom: 2rem; }
+
+.contact-item {
+  display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.75rem;
+}
+.ci-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  border-radius: 10px; background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+}
+.ci-icon svg { width: 18px; height: 18px; stroke: var(--blue-mid); }
+.ci-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
+.ci-val { font-size: 0.9rem; color: var(--text); line-height: 1.6; font-weight: 500; }
+.ci-val a { color: var(--blue-bright); text-decoration: none; }
+.ci-val a:hover { text-decoration: underline; }
+
+.hours-pill {
+  display: flex; align-items: center; gap: 0.75rem;
+  background: var(--green-pale);
+  border: 1px solid rgba(92,184,92,0.3);
+  border-radius: 10px; padding: 1rem 1.25rem;
+  margin-top: 0.5rem;
+}
+.hours-pill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.hours-pill p { font-size: 0.72rem; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+.hours-pill strong { font-size: 0.9rem; color: #2d7a2d; display: block; margin-top: 0.15rem; }
+
+.map-wrap {
+  border-radius: 20px; overflow: hidden;
+  border: 1.5px solid var(--gray-light);
+  box-shadow: 0 4px 24px rgba(30,77,123,0.08);
+}
+.map-wrap iframe { width: 100%; height: 480px; display: block; border: 0; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--blue-dark);
+  border-top: 3px solid var(--green);
+  padding: 2.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem; font-weight: 800;
+  color: var(--white); letter-spacing: 0.02em;
+}
+.footer-logo span { color: #7dd3a8; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { color: rgba(255,255,255,0.45); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.rd1 { transition-delay: 0.1s; }
+.rd2 { transition-delay: 0.2s; }
+.rd3 { transition-delay: 0.3s; }
+
+/* ─── CENNIK ─── */
+.price-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.04);
+  transition: background 0.2s;
+}
+.price-row:first-child { border-radius: 12px 12px 0 0; }
+.price-row:last-child { border-radius: 0 0 12px 12px; }
+.price-row:hover { background: rgba(255,255,255,0.08); }
+.price-name {
+  font-size: 0.95rem; color: rgba(255,255,255,0.8); font-weight: 400;
+}
+.price-val {
+  font-size: 0.95rem; color: rgba(255,255,255,0.55); white-space: nowrap;
+}
+.price-val strong {
+  color: #7dd3a8; font-size: 1.1rem; font-weight: 700; margin-left: 0.25rem;
+}
+
+/* ─── SERVICE DETAIL BUTTON ─── */
+.svc-btn {
+  margin-top: 1.5rem;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: none; border: 1.5px solid var(--blue-light);
+  color: var(--blue-mid); border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.svc-btn span { transition: transform 0.2s; }
+.svc-btn:hover {
+  background: var(--blue-mid); color: var(--white);
+  border-color: var(--blue-mid);
+}
+.svc-btn:hover span { transform: translateX(4px); }
+
+/* ─── SERVICE MODALS ─── */
+.svc-modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(10,20,40,0.65);
+  backdrop-filter: blur(6px);
+  overflow-y: auto; padding: 2rem 1rem;
+  animation: fadeOverlay 0.25s ease;
+}
+@keyframes fadeOverlay { from { opacity:0 } to { opacity:1 } }
+
+.svc-modal {
+  max-width: 680px; margin: 2rem auto;
+  background: var(--white);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:none } }
+
+.svc-modal-header {
+  padding: 1.75rem 2rem;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+}
+.svc-modal-eyebrow {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-bottom: 0.3rem;
+}
+.svc-modal-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.6rem; font-weight: 800; color: var(--white); line-height: 1.1;
+}
+.svc-modal-close {
+  background: rgba(255,255,255,0.12); border: none;
+  color: var(--white); width: 34px; height: 34px; border-radius: 50%;
+  font-size: 1rem; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.svc-modal-close:hover { background: rgba(255,255,255,0.25); }
+
+.svc-modal-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.75rem; }
+
+.svc-block {
+  background: var(--offwhite);
+  border-radius: 10px; padding: 1.5rem;
+  border-left: 3px solid var(--blue-mid);
+}
+.svc-block:nth-child(2) { border-left-color: var(--green); }
+.svc-block:nth-child(3) { border-left-color: #b8860b; }
+
+.svc-block-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 700; color: var(--blue-dark);
+  margin-bottom: 0.5rem; line-height: 1.4;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+}
+.svc-block-badge {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem; border-radius: 4px;
+  white-space: nowrap; vertical-align: middle;
+}
+.svc-block-lead {
+  font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;
+}
+.svc-list {
+  list-style: none; display: flex; flex-direction: column; gap: 0.45rem;
+}
+.svc-list li {
+  font-size: 0.87rem; color: var(--text);
+  padding-left: 1.25rem; position: relative; line-height: 1.5;
+}
+.svc-list li::before {
+  content: '✓'; position: absolute; left: 0;
+  color: var(--green); font-size: 0.75rem; font-weight: 700;
+  top: 1px;
+}
+
+.svc-modal-cta {
+  display: flex; gap: 0.75rem; align-items: center;
+  padding-top: 0.5rem; border-top: 1px solid var(--gray-light);
+}
+.svc-modal-close-btn {
+  background: none; border: 1.5px solid var(--gray-light);
+  color: var(--text-muted); padding: 0.7rem 1.5rem;
+  border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem; font-weight: 500; cursor: pointer;
+  transition: all 0.2s;
+}
+.svc-modal-close-btn:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 6rem; }
+  .hero-right { padding: 2rem; }
+  .strip { flex-direction: column; }
+  .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .services-grid { grid-template-columns: 1fr; }
+  .about-layout, .contact-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  nav { border-radius: 12px; top: 0; width: 100%; left: 0; transform: none; padding: 0 1rem; }
+  .nav-links { display: none; }
+  .nav-logo { font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+  .nav-cta { font-size: 0.75rem; padding: 0.4rem 0.9rem; white-space: nowrap; flex-shrink: 0; }
+  .hero { grid-template-columns: 1fr; padding-top: 5rem; padding-bottom: 2rem; }
+  .hero-right { display: none; }
+  .hero-left { padding: 2rem; }
+  .hero-left::after {
+    content: '';
+    display: block;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(30,77,123,0.1);
+  }
+  /* mini stats pod przyciskami na mobile */
+  .hero-mobile-stats {
+    display: flex !important;
+    gap: 0;
+    margin-top: 1.5rem;
+    border: 1px solid var(--blue-light);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .hero-mobile-stat {
+    flex: 1;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    border-right: 1px solid var(--blue-light);
+  }
+  .hero-mobile-stat:last-child { border-right: none; }
+  .hero-mobile-stat-val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.3rem; font-weight: 800; color: var(--blue-dark); line-height: 1;
+  }
+  .hero-mobile-stat-label {
+    font-size: 0.65rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-top: 0.3rem; line-height: 1.3;
+  }
+  .hero-left { padding: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">A.M. <span>Pakuła</span> · Biuro Rachunkowe</div>
+  <ul class="nav-links">
+    <li><a href="#oferta">Oferta</a></li>
+    <li><a href="#cennik">Cennik</a></li>
+    <li><a href="#o-nas">O firmie</a></li>
+    
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="tel:327674143" class="nav-cta" id="ed-nav-tel">📞 32 767 41 43</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-chip" id="ed-chip">Piekary Śląskie · ponad 15 lat doświadczenia</div>
+    <h1 id="ed-h1">Twój partner<br>w <span class="accent">biznesie</span></h1>
+    <p class="hero-lead" id="ed-lead">Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z Górnego Śląska. Rzetelność, kompetencja, dobra cena.</p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn-primary">Skontaktuj się z nami</a>
+      <a href="#oferta" class="btn-secondary">Sprawdź ofertę</a>
+    </div>
+    <!-- widoczne tylko na mobile -->
+    <div class="hero-mobile-stats" style="display:none">
+      <div class="hero-mobile-stat">
+        <div class="hero-mobile-stat-val">15+</div>
+        <div class="hero-mobile-stat-label">lat na rynku</div>
+      </div>
+      <div class="hero-mobile-stat">
+        <div class="hero-mobile-stat-val" style="color:var(--green-dark)">JDG</div>
+        <div class="hero-mobile-stat-label">i sp. z o.o.</div>
+      </div>
+      <div class="hero-mobile-stat">
+        <div class="hero-mobile-stat-val">0zł</div>
+        <div class="hero-mobile-stat-label">ukrytych opłat</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="glass-card main-card">
+      <div class="gc-label">Biuro Rachunkowe</div>
+      <div class="gc-value">A.M.<span class="unit"> Pakuła</span></div>
+      <div class="gc-sub">Piekary Śląskie · ul. Wyszyńskiego 6</div>
+      <div class="badge-green">✓ Stały opiekun klienta</div>
+    </div>
+    <div class="gc-row">
+      <div class="glass-card">
+        <div class="gc-icon" style="background:#dff0d8">
+          <svg fill="none" stroke="var(--green-dark)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="gc-label">Na rynku</div>
+        <div class="gc-value" style="font-size:2rem">15<span class="unit">+ lat</span></div>
+      </div>
+      <div class="glass-card">
+        <div class="gc-icon" style="background:var(--green-pale)">
+          <svg fill="none" stroke="var(--green-dark)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z"/></svg>
+        </div>
+        <div class="gc-label">Obsługa</div>
+        <div class="gc-value" style="font-size:1.6rem;color:var(--green-dark)">JDG<span class="unit" style="font-size:0.85rem"> i sp. z o.o.</span></div>
+      </div>
+    </div>
+    <div class="glass-card">
+      <div class="gc-label">Godziny otwarcia</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--blue-dark)" id="ed-hours">Pon – Pt: 8:00 – 16:00</div>
+      <div class="gc-sub">ul. Wyszyńskiego 6, Piekary Śląskie</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRIP ── -->
+<div class="strip">
+  <div class="strip-item">
+    <div class="strip-icon">
+      <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+    </div>
+    <div><div class="strip-text-label">Usługa</div><div class="strip-text-val" id="ed-s1">Księgowość pełna i uproszczona</div></div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-icon">
+      <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+    </div>
+    <div><div class="strip-text-label">Usługa</div><div class="strip-text-val" id="ed-s2">Kadry i Płace · ZUS · PFRON</div></div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-icon">
+      <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+    </div>
+    <div><div class="strip-text-label">Usługa</div><div class="strip-text-val" id="ed-s3">Rejestracja i doradztwo firm</div></div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-icon">
+      <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+    </div>
+    <div><div class="strip-text-label">Kontakt</div><div class="strip-text-val" id="ed-s4">783 979 826 · 32 767 41 43</div></div>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section class="content-section services" id="oferta">
+  <div class="wrap">
+    <div class="services-head reveal">
+      <div>
+        <div class="eyebrow">Nasza oferta</div>
+        <h2 class="section-title">Kompletna obsługa<br><span class="hl">Twojej firmy</span></h2>
+      </div>
+      <p class="services-desc">Oferujemy pełen zakres usług księgowych i kadrowych — od jednoosobowych działalności po spółki prawa handlowego.</p>
+    </div>
+    <div class="services-grid reveal rd1">
+
+      <!-- KARTA 1 -->
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-icon-wrap" style="background:var(--blue-light)">
+          <svg fill="none" stroke="var(--blue-mid)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+        </div>
+        <h3>Księgowość</h3>
+        <p>Pełna obsługa rachunkowa — KPiR, pełna księgowość (KH) oraz ryczałt ewidencjonowany. Dopasowana do formy Twojej działalności.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">KPiR</span><span class="svc-tag">Pełna KH</span><span class="svc-tag">VAT</span><span class="svc-tag">Ryczałt</span>
+        </div>
+        <button class="svc-btn" onclick="openModal('m1')">Zobacz szczegóły <span>→</span></button>
+      </div>
+
+      <!-- KARTA 2 -->
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-icon-wrap" style="background:var(--green-pale)">
+          <svg fill="none" stroke="var(--green-dark)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+        </div>
+        <h3>Kadry i Płace</h3>
+        <p>Kompleksowa obsługa kadrowo-płacowa: listy płac, ZUS, PFRON, umowy o pracę i zlecenia, dokumentacja kadrowa.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Listy płac</span><span class="svc-tag">ZUS</span><span class="svc-tag">Umowy</span><span class="svc-tag">PFRON</span>
+        </div>
+        <button class="svc-btn" onclick="openModal('m2')">Zobacz szczegóły <span>→</span></button>
+      </div>
+
+      <!-- KARTA 3 -->
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-icon-wrap" style="background:#fef3cd">
+          <svg fill="none" stroke="#856404" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        </div>
+        <h3>Usługi Dodatkowe</h3>
+        <p>Sporządzanie deklaracji rocznych PIT oraz wsparcie w zakresie dokumentów podatkowych dla osób fizycznych i firm.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">PIT 11</span><span class="svc-tag">PIT 28</span><span class="svc-tag">PIT 36</span><span class="svc-tag">PIT 36L</span>
+        </div>
+        <button class="svc-btn" onclick="openModal('m3')">Zobacz szczegóły <span>→</span></button>
+      </div>
+
+      <!-- KARTA 4 -->
+      <div class="svc">
+        <div class="svc-num">04</div>
+        <div class="svc-icon-wrap" style="background:var(--blue-light)">
+          <svg fill="none" stroke="var(--blue-mid)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+        </div>
+        <h3>Oferta Specjalna</h3>
+        <p>Bezpłatna pomoc dla nowych firm przy rejestracji i wyborze formy opodatkowania. Współpraca z instytucjami ubezpieczeniowymi i kredytowymi.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Nowe firmy</span><span class="svc-tag">Rejestracja</span><span class="svc-tag">Doradztwo</span>
+        </div>
+        <button class="svc-btn" onclick="openModal('m4')">Zobacz szczegóły <span>→</span></button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     MODALS USŁUG
+══════════════════════════════════════ -->
+
+<!-- MODAL 1 — KSIĘGOWOŚĆ -->
+<div id="m1" class="svc-modal-overlay">
+  <div class="svc-modal">
+    <div class="svc-modal-header" style="background:var(--blue-mid)">
+      <div>
+        <div class="svc-modal-eyebrow">Oferta · 01</div>
+        <h2 class="svc-modal-title">Księgowość</h2>
+      </div>
+      <button class="svc-modal-close" onclick="closeModal('m1')">✕</button>
+    </div>
+    <div class="svc-modal-body">
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Prowadzenie ksiąg rachunkowych <span class="svc-block-badge" style="background:var(--blue-light);color:var(--blue-mid)">Pełna księgowość</span></h3>
+        <p class="svc-block-lead">Klientom zobowiązanym do prowadzenia pełnej księgowości nasze biuro oferuje:</p>
+        <ul class="svc-list">
+          <li>otwarcie ksiąg rachunkowych</li>
+          <li>sporządzenie planu kont</li>
+          <li>ewidencjonowanie dokumentów księgowych w księgach rachunkowych</li>
+          <li>prowadzenie ewidencji sprzedaży i zakupu na potrzeby podatku od towarów i usług</li>
+          <li>prowadzenie ewidencji środków trwałych</li>
+          <li>sporządzanie miesięcznych lub kwartalnych deklaracji dla podatku od towarów i usług</li>
+          <li>obliczanie miesięcznych lub kwartalnych zaliczek na podatek dochodowy</li>
+          <li>sporządzanie deklaracji wymaganych przez ZUS</li>
+          <li>sporządzanie sprawozdań statystycznych wymaganych przez GUS</li>
+          <li>sporządzanie sprawozdania finansowego</li>
+        </ul>
+      </div>
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Prowadzenie podatkowej księgi przychodów i rozchodów <span class="svc-block-badge" style="background:var(--green-pale);color:var(--green-dark)">KPiR</span></h3>
+        <p class="svc-block-lead">Klientom zobowiązanym do prowadzenia księgi przychodów i rozchodów nasze biuro oferuje:</p>
+        <ul class="svc-list">
+          <li>ewidencjonowanie dokumentów księgowych</li>
+          <li>prowadzenie ewidencji sprzedaży i zakupu na potrzeby podatku od towarów i usług</li>
+          <li>prowadzenie ewidencji środków trwałych</li>
+          <li>obliczanie wysokości podatku dochodowego</li>
+          <li>sporządzanie miesięcznych lub kwartalnych deklaracji dla podatku od towarów i usług</li>
+          <li>sporządzanie deklaracji wymaganych przez ZUS</li>
+          <li>sporządzanie zeznania rocznego</li>
+        </ul>
+      </div>
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Prowadzenie ryczałtu ewidencjonowanego <span class="svc-block-badge" style="background:#fef3cd;color:#856404">Ryczałt</span></h3>
+        <p class="svc-block-lead">Klientom zobowiązanym do prowadzenia księgowości w formie ryczałtu ewidencjonowanego nasze biuro oferuje:</p>
+        <ul class="svc-list">
+          <li>prowadzenie ewidencji przychodów</li>
+          <li>prowadzenie ewidencji sprzedaży i zakupu na potrzeby podatku od towarów i usług</li>
+          <li>prowadzenie ewidencji środków trwałych</li>
+          <li>obliczanie wysokości podatku dochodowego</li>
+          <li>sporządzanie miesięcznych lub kwartalnych deklaracji dla podatku od towarów i usług</li>
+          <li>sporządzanie deklaracji wymaganych przez ZUS</li>
+          <li>sporządzanie zeznania rocznego</li>
+        </ul>
+      </div>
+
+      <div class="svc-modal-cta">
+        <a href="#kontakt" class="btn-primary" onclick="closeModal('m1')">Skontaktuj się z nami</a>
+        <button class="svc-modal-close-btn" onclick="closeModal('m1')">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2 — KADRY I PŁACE -->
+<div id="m2" class="svc-modal-overlay">
+  <div class="svc-modal">
+    <div class="svc-modal-header" style="background:var(--green-dark)">
+      <div>
+        <div class="svc-modal-eyebrow">Oferta · 02</div>
+        <h2 class="svc-modal-title">Kadry i Płace</h2>
+      </div>
+      <button class="svc-modal-close" onclick="closeModal('m2')">✕</button>
+    </div>
+    <div class="svc-modal-body">
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Usługi kadrowo-płacowe <span class="svc-block-badge" style="background:var(--green-pale);color:var(--green-dark)">Kompleksowa obsługa</span></h3>
+        <p class="svc-block-lead">Wśród usług kadrowo-płacowych świadczonych przez nasze biuro należy wymienić:</p>
+        <ul class="svc-list">
+          <li>sporządzanie deklaracji wymaganych przez ZUS</li>
+          <li>przekazywanie drogą elektroniczną dokumentów ZUS</li>
+          <li>obliczanie comiesięcznych składek i sporządzanie deklaracji ZUS i PIT</li>
+          <li>sporządzanie umów zlecenia oraz umów o dzieło</li>
+          <li>sporządzanie listy płac</li>
+        </ul>
+      </div>
+
+      <div class="svc-modal-cta">
+        <a href="#kontakt" class="btn-primary" onclick="closeModal('m2')">Skontaktuj się z nami</a>
+        <button class="svc-modal-close-btn" onclick="closeModal('m2')">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3 — USŁUGI DODATKOWE -->
+<div id="m3" class="svc-modal-overlay">
+  <div class="svc-modal">
+    <div class="svc-modal-header" style="background:#856404">
+      <div>
+        <div class="svc-modal-eyebrow">Oferta · 03</div>
+        <h2 class="svc-modal-title">Usługi Dodatkowe</h2>
+      </div>
+      <button class="svc-modal-close" onclick="closeModal('m3')">✕</button>
+    </div>
+    <div class="svc-modal-body">
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Deklaracje roczne PIT <span class="svc-block-badge" style="background:#fef3cd;color:#856404">Rozliczenia roczne</span></h3>
+        <p class="svc-block-lead">Nasze biuro oferuje sporządzanie deklaracji rocznych:</p>
+        <ul class="svc-list">
+          <li><strong>PIT 11</strong> — informacja o dochodach oraz pobranych zaliczkach na podatek dochodowy</li>
+          <li><strong>PIT 28</strong> — zeznanie o wysokości uzyskanego przychodu (ryczałt)</li>
+          <li><strong>PIT 36</strong> — zeznanie o wysokości osiągniętego dochodu / poniesionej straty</li>
+          <li><strong>PIT 36L</strong> — zeznanie dla podatników rozliczających się podatkiem liniowym</li>
+          <li>inne deklaracje PIT według indywidualnych potrzeb klienta</li>
+        </ul>
+      </div>
+
+      <div class="svc-modal-cta">
+        <a href="#kontakt" class="btn-primary" onclick="closeModal('m3')">Skontaktuj się z nami</a>
+        <button class="svc-modal-close-btn" onclick="closeModal('m3')">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4 — OFERTA SPECJALNA -->
+<div id="m4" class="svc-modal-overlay">
+  <div class="svc-modal">
+    <div class="svc-modal-header" style="background:var(--blue-dark)">
+      <div>
+        <div class="svc-modal-eyebrow">Oferta · 04</div>
+        <h2 class="svc-modal-title">Oferta Specjalna</h2>
+      </div>
+      <button class="svc-modal-close" onclick="closeModal('m4')">✕</button>
+    </div>
+    <div class="svc-modal-body">
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Pomoc dla przedsiębiorców <strong>rozpoczynających</strong> działalność <span class="svc-block-badge" style="background:var(--green-pale);color:var(--green-dark)">Nowe firmy</span></h3>
+        <p class="svc-block-lead">Dla nowo rejestrowanych firm (osób fizycznych rozpoczynających działalność gospodarczą) oferujemy:</p>
+        <ul class="svc-list">
+          <li>bezpłatną pomoc w przygotowaniu niezbędnych dokumentów rejestracyjnych</li>
+          <li>konsultacje dotyczące formy opodatkowania</li>
+        </ul>
+      </div>
+
+      <div class="svc-block">
+        <h3 class="svc-block-title">Pomoc dla przedsiębiorców <strong>prowadzących</strong> działalność <span class="svc-block-badge" style="background:var(--blue-light);color:var(--blue-mid)">Działające firmy</span></h3>
+        <p class="svc-block-lead">Dla potrzeb naszych Klientów prowadzących działalność gospodarczą:</p>
+        <ul class="svc-list">
+          <li>współpracujemy z instytucjami ubezpieczeniowymi</li>
+          <li>współpracujemy z instytucjami kredytowymi</li>
+        </ul>
+      </div>
+
+      <div class="svc-modal-cta">
+        <a href="#kontakt" class="btn-primary" onclick="closeModal('m4')">Skontaktuj się z nami</a>
+        <button class="svc-modal-close-btn" onclick="closeModal('m4')">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CENNIK ── -->
+<section class="content-section" id="cennik" style="background:var(--blue-dark);padding:5rem 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Plus Jakarta Sans',sans-serif;font-size:18rem;font-weight:800;color:rgba(255,255,255,0.02);white-space:nowrap;pointer-events:none;">CENNIK</div>
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:3.5rem;" class="reveal">
+      <div class="eyebrow" style="color:#7dd3a8;justify-content:center;">
+        <span style="width:1.5rem;height:2px;background:#7dd3a8;display:inline-block;margin-right:0.5rem;vertical-align:middle;"></span>
+        Cennik
+      </div>
+      <h2 class="section-title" style="color:var(--white);margin:0 auto;">Przykładowy cennik <span style="color:#7dd3a8;">naszych usług</span></h2>
+      <p style="color:rgba(255,255,255,0.45);font-size:0.9rem;margin-top:0.75rem;">Ceny ustalane indywidualnie — zależą od zakresu obsługi i liczby dokumentów</p>
+    </div>
+
+    <div class="reveal rd1" style="max-width:680px;margin:0 auto;">
+
+      <div class="price-row">
+        <div class="price-name" id="ed-pn1">Ryczałt ewidencjonowany</div>
+        <div class="price-val">od <strong id="ed-cena1">150 zł</strong></div>
+      </div>
+      <div class="price-row">
+        <div class="price-name" id="ed-pn2">Księga przychodów i rozchodów</div>
+        <div class="price-val">od <strong id="ed-cena2">200 zł</strong></div>
+      </div>
+      <div class="price-row">
+        <div class="price-name" id="ed-pn3">Księgi handlowe</div>
+        <div class="price-val">od <strong id="ed-cena3">500 zł</strong></div>
+      </div>
+      <div class="price-row" style="border-bottom:none;">
+        <div class="price-name" id="ed-pn4">Obsługa płacowa jednego pracownika</div>
+        <div class="price-val">od <strong id="ed-cena4">50 zł</strong></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="content-section about" id="o-nas">
+  <div class="wrap">
+    <div class="about-layout">
+      <div class="about-visual reveal">
+        <div class="about-big-card" style="height:100%;min-height:280px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="about-big-num" id="ed-about-num">15<span>+</span></div>
+          <div class="about-big-label" id="ed-about-label">lat rzetelnej obsługi księgowej na Górnym Śląsku</div>
+        </div>
+      </div>
+      <div class="about-content reveal rd2">
+        <div class="eyebrow">Dlaczego my</div>
+        <h2 class="section-title">Doświadczenie i <span class="hl">zaufanie</span></h2>
+        <p id="ed-about-p">Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z Piekar Śląskich i okolic. Każdy klient jest dla nas ważny — niezależnie od wielkości firmy.</p>
+        <ul class="checklist">
+          <li><div class="check-dot">✓</div><span id="ed-ch1">Obsługujemy zarówno JDG, jak i spółki z o.o. — w jednym miejscu</span></li>
+          <li><div class="check-dot">✓</div><span id="ed-ch2">Dobra cena i jasne zasady — transparentny cennik, bez niespodzianek</span></li>
+          <li><div class="check-dot">✓</div><span id="ed-ch3">Stały opiekun klienta — zawsze wiesz, do kogo dzwonisz</span></li>
+          <li><div class="check-dot">✓</div><span id="ed-ch4">Lokalne biuro — ul. Wyszyńskiego 6, łatwy dojazd i parking</span></li>
+          <li><div class="check-dot">✓</div><span id="ed-ch5">Reprezentacja przed Urzędem Skarbowym i ZUS</span></li>
+        </ul>
+        <div style="margin-top:2rem">
+          <a href="#kontakt" class="btn-primary">Skontaktuj się z nami</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+
+
+<!-- ── CONTACT ── -->
+<section class="content-section contact" id="kontakt">
+  <div class="wrap">
+    <div style="margin-bottom:3rem">
+      <div class="eyebrow reveal">Kontakt</div>
+      <h2 class="section-title reveal rd1">Odwiedź nas lub zadzwoń</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-panel reveal">
+        <div class="eyebrow" style="margin-bottom:1.5rem">Biuro Rachunkowe A.M. Pakuła</div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></div>
+          <div><div class="ci-label">Adres</div><div class="ci-val" id="ed-adres">Wyszyńskiego 6<br>41-940 Piekary Śląskie</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></div>
+          <div>
+            <div class="ci-label">Telefon</div>
+            <div class="ci-val">
+              <a href="tel:327674143" id="ed-tel1">32 767 41 43</a><br>
+              <a href="tel:783979826" id="ed-tel2">783 979 826</a> / <a href="tel:783979825" id="ed-tel3">783 979 825</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></div>
+          <div><div class="ci-label">E-mail</div><div class="ci-val"><a href="mailto:pocztatwojebiuro@gmail.com" id="ed-email">pocztatwojebiuro@gmail.com</a></div></div>
+        </div>
+        <div class="hours-pill">
+          <div class="hours-pill-dot"></div>
+          <div>
+            <p>Godziny otwarcia</p>
+            <strong id="ed-hours2">Poniedziałek – Piątek: 8:00 – 16:00</strong>
+          </div>
+        </div>
+      </div>
+      <div class="map-wrap reveal rd2">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d20355.14272350492!2d18.945236!3d50.377875!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716d3597a490c51%3A0x1b00b7530a29a5c4!2sPrymasa+Stefana+Wyszy%C5%84skiego+6%2C+Piekary+%C5%9Al%C4%85skie!5e0!3m2!1spl!2spl!4v1518100523788"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa dojazdu">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">A.M. <span>Pakuła</span> · Biuro Rachunkowe</div>
+    <ul class="footer-links">
+      <li><a href="#oferta">Oferta</a></li>
+      <li><a href="#o-nas">O firmie</a></li>
+      
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#" id="pp-open">Polityka prywatności</a></li>
+    </ul>
+    <p>© 2026 · Wyszyńskiego 6, Piekary Śląskie</p>
+  </div>
+</footer>
+
+<!-- ── COOKIE BANNER ── -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--blue-dark);border-top:3px solid var(--green);padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;box-shadow:0 -4px 24px rgba(0,0,0,0.2);">
+  <div style="display:flex;align-items:flex-start;gap:1rem;max-width:700px;">
+    <span style="font-size:1.4rem;flex-shrink:0;">🍪</span>
+    <p style="font-size:0.85rem;color:rgba(255,255,255,0.75);line-height:1.6;margin:0;">Ta strona używa plików cookies wyłącznie w celu zapewnienia prawidłowego działania. Nie wykorzystujemy cookies do śledzenia użytkowników ani celów marketingowych. Korzystając ze strony, akceptujesz naszą <a href="#" id="cookie-pp-link" style="color:#7dd3a8;text-decoration:underline;">Politykę Prywatności</a>.</p>
+  </div>
+  <div style="display:flex;gap:0.75rem;flex-shrink:0;">
+    <button id="cookie-reject" style="background:transparent;border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.6);padding:0.55rem 1.25rem;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'">Tylko niezbędne</button>
+    <button id="cookie-accept" style="background:var(--green);border:none;color:#fff;padding:0.55rem 1.5rem;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='var(--green-dark)'" onmouseout="this.style.background='var(--green)'">Rozumiem</button>
+  </div>
+</div>
+<div id="pp-overlay" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(10,20,35,0.7);backdrop-filter:blur(4px);overflow-y:auto;padding:2rem 1rem;">
+  <div style="max-width:760px;margin:2rem auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.25);">
+    <!-- header -->
+    <div style="background:var(--blue-dark);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:0.35rem;">Dokument prawny</div>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;line-height:1.1;">Polityka Prywatności</h2>
+      </div>
+      <button id="pp-close" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:38px;height:38px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">✕</button>
+    </div>
+    <!-- treść -->
+    <div style="padding:2.5rem;font-family:'Source Sans 3',sans-serif;font-size:0.92rem;color:#2c3e50;line-height:1.8;">
+
+      <p style="color:#5d7285;margin-bottom:2rem;">Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych w związku z korzystaniem ze strony internetowej Biura Rachunkowego A.M. Pakuła.</p>
+
+      <div style="background:var(--blue-light);border-left:3px solid var(--blue-mid);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin-bottom:2rem;font-size:0.85rem;color:var(--blue-dark);">
+        <strong>Administrator danych osobowych:</strong><br>
+        Biuro Rachunkowe A.M. Pakuła<br>
+        ul. Wyszyńskiego 6, 41-940 Piekary Śląskie<br>
+        Tel.: 32 767 41 43 | E-mail: pocztatwojebiuro@gmail.com
+      </div>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">1. Jakie dane zbieramy</h3>
+      <p>W związku z prowadzoną działalnością możemy przetwarzać następujące dane osobowe: imię i nazwisko, adres e-mail, numer telefonu, adres prowadzenia działalności gospodarczej, NIP oraz inne dane niezbędne do wykonania usług księgowych i kadrowo-płacowych na podstawie zawartej umowy.</p>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">2. Cel i podstawa przetwarzania danych</h3>
+      <p>Dane osobowe przetwarzamy w następujących celach:</p>
+      <ul style="margin:0.6rem 0 0.6rem 1.25rem;display:flex;flex-direction:column;gap:0.4rem;">
+        <li><strong>Wykonanie umowy</strong> — art. 6 ust. 1 lit. b RODO — realizacja usług księgowych, kadrowych i płacowych</li>
+        <li><strong>Obowiązki prawne</strong> — art. 6 ust. 1 lit. c RODO — wypełnianie obowiązków wynikających z przepisów prawa podatkowego i rachunkowego</li>
+        <li><strong>Kontakt</strong> — art. 6 ust. 1 lit. f RODO — odpowiedź na zapytania przesłane drogą mailową lub telefoniczną</li>
+        <li><strong>Prawnie uzasadniony interes</strong> — art. 6 ust. 1 lit. f RODO — archiwizacja dokumentów i ochrona przed roszczeniami</li>
+      </ul>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">3. Okres przechowywania danych</h3>
+      <p>Dane przechowujemy przez okres niezbędny do realizacji celów, dla których zostały zebrane — w szczególności przez czas trwania umowy, a po jej zakończeniu przez okres wynikający z przepisów prawa (np. podatkowych — do 5 lat, rachunkowych — do 5 lat od zamknięcia roku obrotowego) lub do momentu przedawnienia ewentualnych roszczeń.</p>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">4. Prawa osoby, której dane dotyczą</h3>
+      <p>Przysługują Państwu następujące prawa:</p>
+      <ul style="margin:0.6rem 0 0.6rem 1.25rem;display:flex;flex-direction:column;gap:0.4rem;">
+        <li>prawo dostępu do swoich danych (art. 15 RODO)</li>
+        <li>prawo do sprostowania danych (art. 16 RODO)</li>
+        <li>prawo do usunięcia danych („prawo do bycia zapomnianym") — art. 17 RODO</li>
+        <li>prawo do ograniczenia przetwarzania (art. 18 RODO)</li>
+        <li>prawo do przenoszenia danych (art. 20 RODO)</li>
+        <li>prawo do wniesienia sprzeciwu wobec przetwarzania (art. 21 RODO)</li>
+        <li>prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa)</li>
+      </ul>
+      <p>W celu realizacji powyższych praw prosimy o kontakt pod adresem: <a href="mailto:pocztatwojebiuro@gmail.com" style="color:var(--blue-bright);">pocztatwojebiuro@gmail.com</a></p>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">5. Odbiorcy danych</h3>
+      <p>Dane osobowe mogą być przekazywane podmiotom uprawnionym do ich otrzymania na mocy obowiązujących przepisów prawa (organy podatkowe, ZUS, PFRON). Nie sprzedajemy ani nie udostępniamy danych osobowych podmiotom trzecim w celach marketingowych.</p>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">6. Pliki cookies</h3>
+      <p>Strona internetowa może wykorzystywać pliki cookies w celu zapewnienia prawidłowego funkcjonowania. Pliki cookies nie są używane do śledzenia użytkowników ani profilowania. Użytkownik może w każdej chwili wyłączyć obsługę plików cookies w ustawieniach przeglądarki.</p>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">7. Bezpieczeństwo danych</h3>
+      <p>Stosujemy odpowiednie środki techniczne i organizacyjne zapewniające ochronę przetwarzanych danych osobowych przed nieuprawnionym dostępem, utratą, zniszczeniem lub ujawnieniem.</p>
+
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--blue-dark);margin:1.75rem 0 0.6rem;">8. Zmiany polityki prywatności</h3>
+      <p>Zastrzegamy sobie prawo do zmiany niniejszej Polityki Prywatności. O wszelkich zmianach poinformujemy poprzez aktualizację treści na stronie internetowej.</p>
+
+      <div style="background:var(--green-pale);border:1px solid rgba(92,184,92,0.3);border-radius:8px;padding:1rem 1.25rem;margin-top:2rem;font-size:0.82rem;color:#2d7a2d;">
+        <strong>Data ostatniej aktualizacji:</strong> maj 2026
+      </div>
+
+      <div style="text-align:center;margin-top:2rem;">
+        <button id="pp-close-btn" style="background:var(--blue-mid);color:#fff;border:none;padding:0.8rem 2.5rem;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--blue-dark)'" onmouseout="this.style.background='var(--blue-mid)'">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  GOOGLE SHEETS INTEGRATION
+//  Aby zmienić treść strony — edytuj arkusz Google Sheets
+//  podany poniżej. Zmiany są widoczne po odświeżeniu strony.
+// ════════════════════════════════════════════════════════
+
+// ID arkusza Google Sheets (zmień na swoje po utworzeniu arkusza)
+const SHEET_ID = '1QJzOvgQPbkzVDxYc1Zd4BndEysxqZwm9iGEojcgZa7Q';
+
+// Adres API — nie zmieniaj
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=pakula_arkusz&gid=191886720`;
+
+function applyData(dane) {
+  const set = (id, val, html) => {
+    const el = document.getElementById(id);
+    if (!el || !val) return;
+    if (html) el.innerHTML = val;
+    else el.textContent = val;
+  };
+
+  set('ed-nav-tel', dane.telefon_nav);
+  set('ed-tel1',    dane.telefon_1);
+  set('ed-tel2',    dane.telefon_2);
+  set('ed-tel3',    dane.telefon_3);
+  set('ed-email',   dane.email);
+  set('ed-adres',   dane.adres, true);
+  set('ed-hours',   dane.godziny_hero);
+  set('ed-hours2',  dane.godziny_kontakt);
+  set('ed-chip',    dane.chip);
+  set('ed-h1',      dane.haslo, true);
+  set('ed-lead',    dane.opis);
+  set('ed-s1',      dane.pasek_1);
+  set('ed-s2',      dane.pasek_2);
+  set('ed-s3',      dane.pasek_3);
+  set('ed-s4',      dane.pasek_4);
+  set('ed-pn1',     dane.cennik_nazwa_1);
+  set('ed-cena1',   dane.cennik_cena_1);
+  set('ed-pn2',     dane.cennik_nazwa_2);
+  set('ed-cena2',   dane.cennik_cena_2);
+  set('ed-pn3',     dane.cennik_nazwa_3);
+  set('ed-cena3',   dane.cennik_cena_3);
+  set('ed-pn4',     dane.cennik_nazwa_4);
+  set('ed-cena4',   dane.cennik_cena_4);
+  set('ed-about-num',   dane.o_firmie_liczba, true);
+  set('ed-about-label', dane.o_firmie_opis_liczby);
+  set('ed-about-p',     dane.o_firmie_tekst);
+  set('ed-ch1',     dane.zaleta_1);
+  set('ed-ch2',     dane.zaleta_2);
+  set('ed-ch3',     dane.zaleta_3);
+  set('ed-ch4',     dane.zaleta_4);
+  set('ed-ch5',     dane.zaleta_5);
+}
+
+// Dane domyślne — widoczne zawsze, nawet bez połączenia z arkuszem
+const DANE_DOMYSLNE = {
+  telefon_nav: '📞 32 767 41 43',
+  telefon_1: '32 767 41 43',
+  telefon_2: '783 979 826',
+  telefon_3: '783 979 825',
+  email: 'pocztatwojebiuro@gmail.com',
+  adres: 'Wyszyńskiego 6<br>41-940 Piekary Śląskie',
+  godziny_hero: 'Pon – Pt: 8:00 – 16:00',
+  godziny_kontakt: 'Poniedziałek – Piątek: 8:00 – 16:00',
+  chip: 'Piekary Śląskie · ponad 15 lat doświadczenia',
+  haslo: 'Twój partner<br>w <span class="accent">biznesie</span>',
+  opis: 'Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z Górnego Śląska. Rzetelność, kompetencja, dobra cena.',
+  pasek_1: 'Księgowość pełna i uproszczona',
+  pasek_2: 'Kadry i Płace · ZUS · PFRON',
+  pasek_3: 'Rejestracja i doradztwo firm',
+  pasek_4: '783 979 826 · 32 767 41 43',
+  cennik_nazwa_1: 'Ryczałt ewidencjonowany', cennik_cena_1: '150 zł',
+  cennik_nazwa_2: 'Księga przychodów i rozchodów', cennik_cena_2: '200 zł',
+  cennik_nazwa_3: 'Księgi handlowe', cennik_cena_3: '500 zł',
+  cennik_nazwa_4: 'Obsługa płacowa jednego pracownika', cennik_cena_4: '50 zł',
+  o_firmie_liczba: '15<span>+</span>',
+  o_firmie_opis_liczby: 'lat rzetelnej obsługi księgowej na Górnym Śląsku',
+  o_firmie_tekst: 'Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z Piekar Śląskich i okolic. Każdy klient jest dla nas ważny — niezależnie od wielkości firmy.',
+  zaleta_1: 'Obsługujemy zarówno JDG, jak i spółki z o.o. — w jednym miejscu',
+  zaleta_2: 'Dobra cena i jasne zasady — transparentny cennik, bez niespodzianek',
+  zaleta_3: 'Stały opiekun klienta — zawsze wiesz, do kogo dzwonisz',
+  zaleta_4: 'Lokalne biuro — ul. Wyszyńskiego 6, łatwy dojazd i parking',
+  zaleta_5: 'Reprezentacja przed Urzędem Skarbowym i ZUS',
+};
+
+// Zastosuj dane domyślne od razu
+applyData(DANE_DOMYSLNE);
+
+// Pobierz dane z Google Sheets (działa na serwerze i lokalnie)
+function loadSheetData() {
+  fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=191886720`)
+    .then(r => r.text())
+    .then(text => {
+      // Google zwraca /*O_o*/ google.visualization.Query.setResponse({...});
+      const jsonStr = text.replace(/^.*?setResponse\(/, '').replace(/\);?\s*$/, '');
+      const json = JSON.parse(jsonStr);
+      const rows = json.table.rows;
+      const dane = {};
+      rows.forEach(row => {
+        if (row.c[0] && row.c[1]) {
+          const key = row.c[0].v.trim();
+          const val = row.c[1].v !== null ? String(row.c[1].v).trim() : '';
+          if (val) dane[key] = val;
+        }
+      });
+      applyData(dane);
+      console.log('✅ Dane załadowane z Google Sheets');
+    })
+    .catch(err => {
+      console.warn('⚠️ Brak dostępu do Google Sheets — używam danych domyślnych', err);
+    });
+}
+</script>
+
+<script>
+const obs = new IntersectionObserver(e => e.forEach(x => {
+  if (x.isIntersecting) x.target.classList.add('visible');
+}), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+function openModal(id) {
+  document.getElementById(id).style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+  document.body.style.overflow = '';
+}
+// kliknięcie tła zamyka modal
+document.querySelectorAll('.svc-modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el) closeModal(el.id); });
+});
+
+// Cookie banner
+const cookieBanner = document.getElementById('cookie-banner');
+if (!localStorage.getItem('cookieConsent')) cookieBanner.style.display = 'flex';
+document.getElementById('cookie-accept').addEventListener('click', () => { localStorage.setItem('cookieConsent','accepted'); cookieBanner.style.display='none'; });
+document.getElementById('cookie-reject').addEventListener('click', () => { localStorage.setItem('cookieConsent','rejected'); cookieBanner.style.display='none'; });
+document.getElementById('cookie-pp-link').addEventListener('click', e => { e.preventDefault(); document.getElementById('pp-overlay').style.display='block'; document.body.style.overflow='hidden'; });
+const overlay = document.getElementById('pp-overlay');
+document.getElementById('pp-open').addEventListener('click', e => { e.preventDefault(); overlay.style.display='block'; document.body.style.overflow='hidden'; });
+document.getElementById('pp-close').addEventListener('click', () => { overlay.style.display='none'; document.body.style.overflow=''; });
+document.getElementById('pp-close-btn').addEventListener('click', () => { overlay.style.display='none'; document.body.style.overflow=''; });
+overlay.addEventListener('click', e => { if(e.target===overlay){ overlay.style.display='none'; document.body.style.overflow=''; } });
+</script>
+
+</body>
+</html>
