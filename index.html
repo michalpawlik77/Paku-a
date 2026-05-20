@@ -1322,49 +1322,55 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
 // Wczytaj dane z dane.json (zarządzane przez Decap CMS)
-fetch('/dane.json')
-  .then(r => r.json())
-  .then(d => {
-    const set = (id, val, html) => {
-      const el = document.getElementById(id);
-      if (!el || !val) return;
-      if (html) el.innerHTML = val; else el.textContent = val;
-    };
-    if (d.telefon_nav) { const el = document.getElementById('ed-nav-tel'); if(el) el.textContent = '📞 ' + d.telefon_nav; }
-    if (d.email)       set('ed-email',       d.email);
-    if (d.telefon_1)   set('ed-tel1',        d.telefon_1);
-    if (d.telefon_2)   set('ed-tel2',        d.telefon_2);
-    if (d.telefon_3)   set('ed-tel3',        d.telefon_3);
-    if (d.adres)       set('ed-adres',       d.adres);
-    if (d.godziny_hero)    set('ed-hours',   d.godziny_hero);
-    if (d.godziny_kontakt) set('ed-hours2',  d.godziny_kontakt);
-    if (d.chip)        set('ed-chip',        d.chip);
-    if (d.haslo)       set('ed-h1',          d.haslo);
-    if (d.opis)        set('ed-lead',        d.opis);
-    if (d.pasek_1)     set('ed-s1',          d.pasek_1);
-    if (d.pasek_2)     set('ed-s2',          d.pasek_2);
-    if (d.pasek_3)     set('ed-s3',          d.pasek_3);
-    if (d.pasek_4)     set('ed-s4',          d.pasek_4);
-    if (d.cennik_nazwa_1)  set('ed-pn1',     d.cennik_nazwa_1);
-    if (d.cennik_cena_1)   set('ed-cena1',   d.cennik_cena_1);
-    if (d.cennik_nazwa_2)  set('ed-pn2',     d.cennik_nazwa_2);
-    if (d.cennik_cena_2)   set('ed-cena2',   d.cennik_cena_2);
-    if (d.cennik_nazwa_3)  set('ed-pn3',     d.cennik_nazwa_3);
-    if (d.cennik_cena_3)   set('ed-cena3',   d.cennik_cena_3);
-    if (d.cennik_nazwa_4)  set('ed-pn4',     d.cennik_nazwa_4);
-    if (d.cennik_cena_4)   set('ed-cena4',   d.cennik_cena_4);
-    if (d.o_firmie_liczba)      set('ed-about-num',   d.o_firmie_liczba);
-    if (d.o_firmie_opis_liczby) set('ed-about-label', d.o_firmie_opis_liczby);
-    if (d.o_firmie_tekst)       set('ed-about-p',     d.o_firmie_tekst);
-    if (d.zaleta_1)    set('ed-ch1',         d.zaleta_1);
-    if (d.zaleta_2)    set('ed-ch2',         d.zaleta_2);
-    if (d.zaleta_3)    set('ed-ch3',         d.zaleta_3);
-    if (d.zaleta_4)    set('ed-ch4',         d.zaleta_4);
-    if (d.zaleta_5)    set('ed-ch5',         d.zaleta_5);
-  })
-  .catch(() => console.log('dane.json nie znaleziony — używam domyślnych'));
-
-})();
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/dane.json?v=' + Date.now())
+    .then(r => r.json())
+    .then(d => {
+      const set = (id, val) => {
+        const el = document.getElementById(id);
+        if (!el || !val) return;
+        el.textContent = val;
+      };
+      const setH = (id, val) => {
+        const el = document.getElementById(id);
+        if (!el || !val) return;
+        el.innerHTML = val;
+      };
+      if (d.telefon_nav) { const el = document.getElementById('ed-nav-tel'); if(el) el.textContent = '📞 ' + d.telefon_nav; }
+      if (d.email)                set('ed-email',       d.email);
+      if (d.telefon_1)            set('ed-tel1',        d.telefon_1);
+      if (d.telefon_2)            set('ed-tel2',        d.telefon_2);
+      if (d.telefon_3)            set('ed-tel3',        d.telefon_3);
+      if (d.adres)                set('ed-adres',       d.adres);
+      if (d.godziny_hero)         set('ed-hours',       d.godziny_hero);
+      if (d.godziny_kontakt)      set('ed-hours2',      d.godziny_kontakt);
+      if (d.chip)                 set('ed-chip',        d.chip);
+      if (d.haslo)                set('ed-h1',          d.haslo);
+      if (d.opis)                 set('ed-lead',        d.opis);
+      if (d.pasek_1)              set('ed-s1',          d.pasek_1);
+      if (d.pasek_2)              set('ed-s2',          d.pasek_2);
+      if (d.pasek_3)              set('ed-s3',          d.pasek_3);
+      if (d.pasek_4)              set('ed-s4',          d.pasek_4);
+      if (d.cennik_nazwa_1)       set('ed-pn1',         d.cennik_nazwa_1);
+      if (d.cennik_cena_1)        set('ed-cena1',       d.cennik_cena_1);
+      if (d.cennik_nazwa_2)       set('ed-pn2',         d.cennik_nazwa_2);
+      if (d.cennik_cena_2)        set('ed-cena2',       d.cennik_cena_2);
+      if (d.cennik_nazwa_3)       set('ed-pn3',         d.cennik_nazwa_3);
+      if (d.cennik_cena_3)        set('ed-cena3',       d.cennik_cena_3);
+      if (d.cennik_nazwa_4)       set('ed-pn4',         d.cennik_nazwa_4);
+      if (d.cennik_cena_4)        set('ed-cena4',       d.cennik_cena_4);
+      if (d.o_firmie_liczba)      set('ed-about-num',   d.o_firmie_liczba);
+      if (d.o_firmie_opis_liczby) set('ed-about-label', d.o_firmie_opis_liczby);
+      if (d.o_firmie_tekst)       set('ed-about-p',     d.o_firmie_tekst);
+      if (d.zaleta_1)             set('ed-ch1',         d.zaleta_1);
+      if (d.zaleta_2)             set('ed-ch2',         d.zaleta_2);
+      if (d.zaleta_3)             set('ed-ch3',         d.zaleta_3);
+      if (d.zaleta_4)             set('ed-ch4',         d.zaleta_4);
+      if (d.zaleta_5)             set('ed-ch5',         d.zaleta_5);
+      console.log('✅ dane.json załadowany pomyślnie');
+    })
+    .catch(e => console.log('⚠️ Błąd pobierania dane.json:', e));
+});
 </script>
 
 <script>
