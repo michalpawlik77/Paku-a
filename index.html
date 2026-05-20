@@ -1319,106 +1319,52 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
   </div>
 </div>
 
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
-// ════════════════════════════════════════════════════════
-//  GOOGLE SHEETS INTEGRATION
-//  Aby zmienić treść strony — edytuj arkusz Google Sheets
-//  podany poniżej. Zmiany są widoczne po odświeżeniu strony.
-// ════════════════════════════════════════════════════════
+// Wczytaj dane z dane.json (zarządzane przez Decap CMS)
+fetch('/dane.json')
+  .then(r => r.json())
+  .then(d => {
+    const set = (id, val, html) => {
+      const el = document.getElementById(id);
+      if (!el || !val) return;
+      if (html) el.innerHTML = val; else el.textContent = val;
+    };
+    if (d.telefon_nav) { const el = document.getElementById('ed-nav-tel'); if(el) el.textContent = '📞 ' + d.telefon_nav; }
+    if (d.email)       set('ed-email',       d.email);
+    if (d.telefon_1)   set('ed-tel1',        d.telefon_1);
+    if (d.telefon_2)   set('ed-tel2',        d.telefon_2);
+    if (d.telefon_3)   set('ed-tel3',        d.telefon_3);
+    if (d.adres)       set('ed-adres',       d.adres);
+    if (d.godziny_hero)    set('ed-hours',   d.godziny_hero);
+    if (d.godziny_kontakt) set('ed-hours2',  d.godziny_kontakt);
+    if (d.chip)        set('ed-chip',        d.chip);
+    if (d.haslo)       set('ed-h1',          d.haslo);
+    if (d.opis)        set('ed-lead',        d.opis);
+    if (d.pasek_1)     set('ed-s1',          d.pasek_1);
+    if (d.pasek_2)     set('ed-s2',          d.pasek_2);
+    if (d.pasek_3)     set('ed-s3',          d.pasek_3);
+    if (d.pasek_4)     set('ed-s4',          d.pasek_4);
+    if (d.cennik_nazwa_1)  set('ed-pn1',     d.cennik_nazwa_1);
+    if (d.cennik_cena_1)   set('ed-cena1',   d.cennik_cena_1);
+    if (d.cennik_nazwa_2)  set('ed-pn2',     d.cennik_nazwa_2);
+    if (d.cennik_cena_2)   set('ed-cena2',   d.cennik_cena_2);
+    if (d.cennik_nazwa_3)  set('ed-pn3',     d.cennik_nazwa_3);
+    if (d.cennik_cena_3)   set('ed-cena3',   d.cennik_cena_3);
+    if (d.cennik_nazwa_4)  set('ed-pn4',     d.cennik_nazwa_4);
+    if (d.cennik_cena_4)   set('ed-cena4',   d.cennik_cena_4);
+    if (d.o_firmie_liczba)      set('ed-about-num',   d.o_firmie_liczba);
+    if (d.o_firmie_opis_liczby) set('ed-about-label', d.o_firmie_opis_liczby);
+    if (d.o_firmie_tekst)       set('ed-about-p',     d.o_firmie_tekst);
+    if (d.zaleta_1)    set('ed-ch1',         d.zaleta_1);
+    if (d.zaleta_2)    set('ed-ch2',         d.zaleta_2);
+    if (d.zaleta_3)    set('ed-ch3',         d.zaleta_3);
+    if (d.zaleta_4)    set('ed-ch4',         d.zaleta_4);
+    if (d.zaleta_5)    set('ed-ch5',         d.zaleta_5);
+  })
+  .catch(() => console.log('dane.json nie znaleziony — używam domyślnych'));
 
-// ID arkusza Google Sheets (zmień na swoje po utworzeniu arkusza)
-const SHEET_ID = '1QJzOvgQPbkzVDxYc1Zd4BndEysxqZwm9iGEojcgZa7Q';
-
-// Adres API — nie zmieniaj
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=pakula_arkusz&gid=191886720`;
-
-function applyData(dane) {
-  const set = (id, val, html) => {
-    const el = document.getElementById(id);
-    if (!el || !val) return;
-    if (html) el.innerHTML = val;
-    else el.textContent = val;
-  };
-
-  set('ed-nav-tel', dane.telefon_nav);
-  set('ed-tel1',    dane.telefon_1);
-  set('ed-tel2',    dane.telefon_2);
-  set('ed-tel3',    dane.telefon_3);
-  set('ed-email',   dane.email);
-  set('ed-adres',   dane.adres, true);
-  set('ed-hours',   dane.godziny_hero);
-  set('ed-hours2',  dane.godziny_kontakt);
-  set('ed-chip',    dane.chip);
-  set('ed-h1',      dane.haslo, true);
-  set('ed-lead',    dane.opis);
-  set('ed-s1',      dane.pasek_1);
-  set('ed-s2',      dane.pasek_2);
-  set('ed-s3',      dane.pasek_3);
-  set('ed-s4',      dane.pasek_4);
-  set('ed-pn1',     dane.cennik_nazwa_1);
-  set('ed-cena1',   dane.cennik_cena_1);
-  set('ed-pn2',     dane.cennik_nazwa_2);
-  set('ed-cena2',   dane.cennik_cena_2);
-  set('ed-pn3',     dane.cennik_nazwa_3);
-  set('ed-cena3',   dane.cennik_cena_3);
-  set('ed-pn4',     dane.cennik_nazwa_4);
-  set('ed-cena4',   dane.cennik_cena_4);
-  set('ed-about-num',   dane.o_firmie_liczba, true);
-  set('ed-about-label', dane.o_firmie_opis_liczby);
-  set('ed-about-p',     dane.o_firmie_tekst);
-  set('ed-ch1',     dane.zaleta_1);
-  set('ed-ch2',     dane.zaleta_2);
-  set('ed-ch3',     dane.zaleta_3);
-  set('ed-ch4',     dane.zaleta_4);
-  set('ed-ch5',     dane.zaleta_5);
-}
-
-// Dane domyślne — widoczne zawsze, nawet bez połączenia z arkuszem
-const DANE_DOMYSLNE = {
-  telefon_nav: '📞 32 767 41 43',
-  telefon_1: '32 767 41 43',
-  telefon_2: '783 979 826',
-  telefon_3: '783 979 825',
-  email: 'pocztatwojebiuro@gmail.com',
-  adres: 'Wyszyńskiego 6<br>41-940 Piekary Śląskie',
-  godziny_hero: 'Pon – Pt: 8:00 – 16:00',
-  godziny_kontakt: 'Poniedziałek – Piątek: 8:00 – 16:00',
-  chip: 'Piekary Śląskie · ponad 15 lat doświadczenia',
-  haslo: 'Twój partner<br>w <span class="accent">biznesie</span>',
-  opis: 'Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z Górnego Śląska. Rzetelność, kompetencja, dobra cena.',
-  pasek_1: 'Księgowość pełna i uproszczona',
-  pasek_2: 'Kadry i Płace · ZUS · PFRON',
-  pasek_3: 'Rejestracja i doradztwo firm',
-  pasek_4: '783 979 826 · 32 767 41 43',
-  cennik_nazwa_1: 'Ryczałt ewidencjonowany', cennik_cena_1: '150 zł',
-  cennik_nazwa_2: 'Księga przychodów i rozchodów', cennik_cena_2: '200 zł',
-  cennik_nazwa_3: 'Księgi handlowe', cennik_cena_3: '500 zł',
-  cennik_nazwa_4: 'Obsługa płacowa jednego pracownika', cennik_cena_4: '50 zł',
-  o_firmie_liczba: '15<span>+</span>',
-  o_firmie_opis_liczby: 'lat rzetelnej obsługi księgowej na Górnym Śląsku',
-  o_firmie_tekst: 'Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z Piekar Śląskich i okolic. Każdy klient jest dla nas ważny — niezależnie od wielkości firmy.',
-  zaleta_1: 'Obsługujemy zarówno JDG, jak i spółki z o.o. — w jednym miejscu',
-  zaleta_2: 'Dobra cena i jasne zasady — transparentny cennik, bez niespodzianek',
-  zaleta_3: 'Stały opiekun klienta — zawsze wiesz, do kogo dzwonisz',
-  zaleta_4: 'Lokalne biuro — ul. Wyszyńskiego 6, łatwy dojazd i parking',
-  zaleta_5: 'Reprezentacja przed Urzędem Skarbowym i ZUS',
-};
-
-// Zastosuj dane domyślne od razu
-applyData(DANE_DOMYSLNE);
-
-// Pobierz dane z Google Sheets przez Apps Script proxy
-function loadSheetData() {
-  fetch('https://script.google.com/macros/s/AKfycbw-0cRa1mhk19uR8wnx21IjEhxlDHD_I1DRhHPfrYpg6YpxQ7JJwlnFN8o4slEBXjA/exec')
-    .then(r => r.json())
-    .then(dane => {
-      applyData(dane);
-      console.log('✅ Dane załadowane z Google Sheets');
-    })
-    .catch(err => {
-      console.warn('⚠️ Brak dostępu do Google Sheets — używam danych domyślnych', err);
-    });
-}
+})();
 </script>
 
 <script>
