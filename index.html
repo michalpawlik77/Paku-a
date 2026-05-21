@@ -1349,6 +1349,17 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+<script>
 // Wczytaj dane z dane.json (zarządzane przez Decap CMS)
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/dane.json?v=' + Date.now())
