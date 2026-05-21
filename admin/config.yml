@@ -77,7 +77,7 @@ collections:
           - label: "Opis pod hasłem"
             name: "opis"
             widget: "text"
-            default: "Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z Górnego Śląska. Rzetelność, kompetencja, dobra cena."
+            default: "Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z całej Polski. Rzetelność, kompetencja, dobra cena."
 
           - label: "── PASEK USŁUG ──"
             name: "pasek_header"
@@ -162,22 +162,22 @@ collections:
           - label: "Opis przy liczbie"
             name: "o_firmie_opis_liczby"
             widget: "string"
-            default: "lat rzetelnej obsługi księgowej na Górnym Śląsku"
+            default: "lat rzetelnej obsługi księgowej w Polsce"
 
           - label: "Akapit opisowy"
             name: "o_firmie_tekst"
             widget: "text"
-            default: "Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z Piekar Śląskich i okolic. Każdy klient jest dla nas ważny — niezależnie od wielkości firmy."
+            default: "Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z całej Polski."
 
           - label: "Zaleta 1"
             name: "zaleta_1"
             widget: "string"
-            default: "Obsługujemy zarówno JDG, jak i spółki z o.o. — w jednym miejscu"
+            default: "Obsługujemy zarówno JDG, jak i spółki z o.o."
 
           - label: "Zaleta 2"
             name: "zaleta_2"
             widget: "string"
-            default: "Dobra cena i jasne zasady — transparentny cennik, bez niespodzianek"
+            default: "Transparentny cennik, bez niespodzianek"
 
           - label: "Zaleta 3"
             name: "zaleta_3"
@@ -186,10 +186,5 @@ collections:
 
           - label: "Zaleta 4"
             name: "zaleta_4"
-            widget: "string"
-            default: "Lokalne biuro — ul. Wyszyńskiego 6, łatwy dojazd i parking"
-
-          - label: "Zaleta 5"
-            name: "zaleta_5"
             widget: "string"
             default: "Reprezentacja przed Urzędem Skarbowym i ZUS"
