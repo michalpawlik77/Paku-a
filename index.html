@@ -55,7 +55,7 @@ nav {
   color: var(--white); white-space: nowrap;
   letter-spacing: 0.03em;
 }
-.nav-logo span { color: #7dd3a8; }
+.nav-logo span { color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; letter-spacing: 0.03em; }
 .nav-links { display: flex; gap: 0.25rem; list-style: none; }
 .nav-links a {
   font-size: 0.78rem; font-weight: 500;
@@ -247,8 +247,9 @@ nav {
 
 .gc-value {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 2.6rem; font-weight: 800;
+  font-size: 2.2rem; font-weight: 700;
   color: var(--blue-dark); line-height: 1;
+  letter-spacing: -0.01em;
 }
 .glass-card.main-card .gc-value { color: var(--white); }
 .gc-value .unit { font-size: 1rem; font-weight: 400; opacity: 0.6; margin-left: 4px; }
@@ -558,7 +559,7 @@ footer {
   font-size: 1rem; font-weight: 800;
   color: var(--white); letter-spacing: 0.02em;
 }
-.footer-logo span { color: #7dd3a8; }
+.footer-logo span { color: var(--white); }
 .footer-links { display: flex; gap: 1.5rem; list-style: none; }
 .footer-links a { color: rgba(255,255,255,0.45); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--white); }
@@ -779,7 +780,7 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
   <div class="hero-left">
     <div class="hero-chip" id="ed-chip">Piekary Śląskie · ponad 15 lat doświadczenia</div>
     <h1 id="ed-h1">Twój partner<br>w <span class="accent">biznesie</span></h1>
-    <p class="hero-lead" id="ed-lead">Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z Górnego Śląska. Rzetelność, kompetencja, dobra cena.</p>
+    <p class="hero-lead" id="ed-lead">Profesjonalna obsługa rachunkowa i kadrowo-płacowa dla firm z całej Polski. Rzetelność, kompetencja, dobra cena.</p>
     <div class="hero-actions">
       <a href="#kontakt" class="btn-primary">Skontaktuj się z nami</a>
       <a href="#oferta" class="btn-secondary">Sprawdź ofertę</a>
@@ -804,7 +805,7 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
   <div class="hero-right">
     <div class="glass-card main-card">
       <div class="gc-label">Biuro Rachunkowe</div>
-      <div class="gc-value">A.M.<span class="unit"> Pakuła</span></div>
+      <div class="gc-value">A.M. Pakuła</div>
       <div class="gc-sub">Piekary Śląskie · ul. Wyszyńskiego 6</div>
       <div class="badge-green">✓ Stały opiekun klienta</div>
     </div>
@@ -814,14 +815,14 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
           <svg fill="none" stroke="var(--green-dark)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <div class="gc-label">Na rynku</div>
-        <div class="gc-value" style="font-size:2rem">15<span class="unit">+ lat</span></div>
+        <div class="gc-value" style="font-size:1.25rem">15+ lat</div>
       </div>
       <div class="glass-card">
         <div class="gc-icon" style="background:var(--green-pale)">
           <svg fill="none" stroke="var(--green-dark)" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z"/></svg>
         </div>
         <div class="gc-label">Obsługa</div>
-        <div class="gc-value" style="font-size:1.6rem;color:var(--green-dark)">JDG<span class="unit" style="font-size:0.85rem"> i sp. z o.o.</span></div>
+        <div class="gc-value" style="font-size:1.25rem;color:var(--green-dark);">JDG i sp. z o.o.</div>
       </div>
     </div>
     <div class="glass-card">
@@ -1116,6 +1117,29 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
       <p style="color:rgba(255,255,255,0.45);font-size:0.9rem;margin-top:0.75rem;">Ceny ustalane indywidualnie — zależą od zakresu obsługi i liczby dokumentów</p>
     </div>
 
+    <div class="reveal rd1" style="max-width:680px;margin:0 auto 2rem;">
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:1rem;">
+        Ze względu na zróżnicowaną specyfikę działalności naszych Klientów, odpłatność za usługi naszego biura określana jest indywidualnie i uzależniona jest od:
+      </p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem;padding-left:0;">
+        <li style="font-size:0.88rem;color:rgba(255,255,255,0.45);padding-left:1.25rem;position:relative;">
+          <span style="position:absolute;left:0;color:#7dd3a8;">—</span> rodzaju ewidencji księgowych,
+        </li>
+        <li style="font-size:0.88rem;color:rgba(255,255,255,0.45);padding-left:1.25rem;position:relative;">
+          <span style="position:absolute;left:0;color:#7dd3a8;">—</span> formy prawnej prowadzonej działalności gospodarczej,
+        </li>
+        <li style="font-size:0.88rem;color:rgba(255,255,255,0.45);padding-left:1.25rem;position:relative;">
+          <span style="position:absolute;left:0;color:#7dd3a8;">—</span> ilości dokumentów księgowych,
+        </li>
+        <li style="font-size:0.88rem;color:rgba(255,255,255,0.45);padding-left:1.25rem;position:relative;">
+          <span style="position:absolute;left:0;color:#7dd3a8;">—</span> liczby zatrudnionych pracowników,
+        </li>
+        <li style="font-size:0.88rem;color:rgba(255,255,255,0.45);padding-left:1.25rem;position:relative;">
+          <span style="position:absolute;left:0;color:#7dd3a8;">—</span> złożoności problemu.
+        </li>
+      </ul>
+    </div>
+
     <div class="reveal rd1" style="max-width:680px;margin:0 auto;">
 
       <div class="price-row">
@@ -1137,6 +1161,10 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
 
     </div>
 
+    <p class="reveal" style="max-width:680px;margin:1.25rem auto 0;font-size:0.8rem;color:rgba(255,255,255,0.3);font-style:italic;">
+      * Podane ceny są cenami netto, nie stanowią oferty w rozumieniu KC.
+    </p>
+
   </div>
 </section>
 
@@ -1147,18 +1175,18 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
       <div class="about-visual reveal">
         <div class="about-big-card" style="height:100%;min-height:280px;display:flex;flex-direction:column;justify-content:center;">
           <div class="about-big-num" id="ed-about-num">15<span>+</span></div>
-          <div class="about-big-label" id="ed-about-label">lat rzetelnej obsługi księgowej na Górnym Śląsku</div>
+          <div class="about-big-label" id="ed-about-label">lat rzetelnej obsługi księgowej w Polsce</div>
         </div>
       </div>
       <div class="about-content reveal rd2">
         <div class="eyebrow">Dlaczego my</div>
         <h2 class="section-title">Doświadczenie i <span class="hl">zaufanie</span></h2>
-        <p id="ed-about-p">Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z Piekar Śląskich i okolic. Każdy klient jest dla nas ważny — niezależnie od wielkości firmy.</p>
+        <p id="ed-about-p">Biuro Rachunkowe A.M. Pakuła to lata rzetelnej obsługi przedsiębiorców z całej Polski.</p>
         <ul class="checklist">
-          <li><div class="check-dot">✓</div><span id="ed-ch1">Obsługujemy zarówno JDG, jak i spółki z o.o. — w jednym miejscu</span></li>
-          <li><div class="check-dot">✓</div><span id="ed-ch2">Dobra cena i jasne zasady — transparentny cennik, bez niespodzianek</span></li>
+          <li><div class="check-dot">✓</div><span id="ed-ch1">Obsługujemy zarówno JDG, jak i spółki z o.o.</span></li>
+          <li><div class="check-dot">✓</div><span id="ed-ch2">Transparentny cennik, bez niespodzianek</span></li>
           <li><div class="check-dot">✓</div><span id="ed-ch3">Stały opiekun klienta — zawsze wiesz, do kogo dzwonisz</span></li>
-          <li><div class="check-dot">✓</div><span id="ed-ch4">Lokalne biuro — ul. Wyszyńskiego 6, łatwy dojazd i parking</span></li>
+
           <li><div class="check-dot">✓</div><span id="ed-ch5">Reprezentacja przed Urzędem Skarbowym i ZUS</span></li>
         </ul>
         <div style="margin-top:2rem">
