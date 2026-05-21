@@ -1433,5 +1433,17 @@ document.getElementById('pp-close-btn').addEventListener('click', () => { overla
 overlay.addEventListener('click', e => { if(e.target===overlay){ overlay.style.display='none'; document.body.style.overflow=''; } });
 </script>
 
+<script>
+// Naprawia sieroty — litery z, i, w, a, o, u na końcu linii
+document.addEventListener('DOMContentLoaded', function() {
+  const selectors = 'p, li, h1, h2, h3, h4, label, .hero-lead, .section-title, .about-big-label, .svc-block-lead';
+  document.querySelectorAll(selectors).forEach(el => {
+    el.innerHTML = el.innerHTML.replace(
+      /(\s)(z|i|w|a|o|u|W|Z|I|A|O|U|że|bo|by|do|go|im|iż|ku|ni|od|po|we|ze|za|na|są)(\s)/g,
+      '$1$2\u00A0'
+    );
+  });
+});
+</script>
 </body>
 </html>
